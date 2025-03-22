@@ -1,0 +1,18 @@
+// prisma/mongo/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../generated/mongo"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_URL")
+}
+
+model LogEntry {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  action    String
+  details   String
+  userId    String
+  timestamp DateTime @default(now())
+}

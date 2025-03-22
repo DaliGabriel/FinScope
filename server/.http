@@ -1,0 +1,4 @@
+@baseUrl = http://localhost:3000
+
+### 🟢 GET request to root endpoint
+GET {{baseUrl}}/
