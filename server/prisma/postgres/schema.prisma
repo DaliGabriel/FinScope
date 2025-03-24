@@ -5,8 +5,9 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../../generated/postgres"
+  provider      = "prisma-client-js"
+  output        = "../../generated/postgres"
+  binaryTargets = ["native", "windows"]
 }
 
 datasource db {
@@ -15,10 +16,9 @@ datasource db {
 }
 
 model Transaction {
-  id        String   @id @default(cuid())
-  type      String
-  amount    Float
-  category  String
-  date      DateTime
+  id       String   @id @default(cuid())
+  type     String
+  amount   Float
+  category String
+  date     DateTime //2025-03-24 00:00:00
 }
-

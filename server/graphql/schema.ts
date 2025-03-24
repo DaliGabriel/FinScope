@@ -1,8 +1,8 @@
-import { createSchema } from 'graphql-yoga';
-import { transactionResolvers } from './resolvers/transaction';
-import { logResolvers } from './resolvers/log';
-import { transactionTypeDefs } from './typeDefs/transaction';
-import { logTypeDefs } from './typeDefs/log';
+import { createSchema } from "graphql-yoga";
+import { transactionResolvers } from "./resolvers/transaction";
+import { logResolvers } from "./resolvers/log";
+import { transactionTypeDefs } from "./typeDefs/transaction";
+import { logTypeDefs } from "./typeDefs/log";
 
 // Merge resolvers
 const mergedResolvers = {
@@ -11,8 +11,7 @@ const mergedResolvers = {
   },
   Mutation: {
     ...transactionResolvers.Mutation,
-    ...logResolvers 
-    .Mutation,
+    ...logResolvers.Mutation,
   },
 };
 

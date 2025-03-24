@@ -7,7 +7,6 @@ export const logResolvers = {
     logs: getLogs(),
   },
   Mutation: {
-    createLog: (_: unknown, args: CreateLogInput) =>
-      createLog(args),
+    createLog: (_: unknown, args: CreateLogInput) => createLog(args),
   },
 };

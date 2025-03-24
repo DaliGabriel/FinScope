@@ -5,18 +5,18 @@
   "directories": {
     "test": "tests"
   },
-"scripts": {
-  "dev": "nodemon src/index.ts",
-  "start": "ts-node src/index.ts",
-  "generate:pg": "prisma generate --schema=prisma/postgres/schema.prisma",
-  "generate:mongo": "prisma generate --schema=prisma/mongo/schema.prisma",
-  "generate:all": "npm run generate:pg && npm run generate:mongo",
-  "migrate:pg": "prisma migrate dev --schema=prisma/postgres/schema.prisma",
-  "push:mongo": "prisma db push --schema=prisma/mongo/schema.prisma",
-  "setup:pg": "npm run migrate:pg && npm run generate:pg",
-  "setup:mongo": "npm run push:mongo && npm run generate:mongo",
-  "setup:all": "npm run setup:pg && npm run setup:mongo"
-},
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "start": "ts-node src/index.ts",
+    "generate:pg": "prisma generate --schema=prisma/postgres/schema.prisma",
+    "generate:mongo": "prisma generate --schema=prisma/mongo/schema.prisma",
+    "generate:all": "npm run generate:pg && npm run generate:mongo",
+    "migrate:pg": "prisma migrate dev --schema=prisma/postgres/schema.prisma",
+    "push:mongo": "prisma db push --schema=prisma/mongo/schema.prisma",
+    "setup:pg": "npm run migrate:pg && npm run generate:pg",
+    "setup:mongo": "npm run push:mongo && npm run generate:mongo",
+    "setup:all": "npm run setup:pg && npm run setup:mongo"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -24,13 +24,16 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^6.5.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "graphql": "^16.10.0",
-    "graphql-yoga": "^5.13.2"
+    "graphql-yoga": "^5.13.2",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "@types/node": "^22.13.11",

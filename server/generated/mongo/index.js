@@ -116,7 +116,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/slapfi/finscope/server/generated/mongo",
+      "value": "C:\\Users\\Gahumada\\proyects\\finscope\\FinScope\\server\\generated\\mongo",
       "fromEnvVar": null
     },
     "config": {
@@ -125,12 +125,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "windows"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/slapfi/finscope/server/prisma/mongo/schema.prisma",
+    "sourceFilePath": "C:\\Users\\Gahumada\\proyects\\finscope\\FinScope\\server\\prisma\\mongo\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -144,6 +148,7 @@ const config = {
     "db"
   ],
   "activeProvider": "mongodb",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -152,8 +157,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// prisma/mongo/schema.prisma\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../../generated/mongo\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"MONGO_URL\")\n}\n\nmodel LogEntry {\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  action    String\n  details   String\n  userId    String\n  timestamp DateTime @default(now())\n}\n",
-  "inlineSchemaHash": "e6ee2481668c2c00a9299b371501a1db8af3a3f9da09dbfd265d1a6ece7a049f",
+  "inlineSchema": "// prisma/mongo/schema.prisma\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../../generated/mongo\"\n  binaryTargets = [\"native\", \"windows\"]\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"MONGO_URL\")\n}\n\nmodel LogEntry {\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  action    String\n  details   String\n  userId    String\n  timestamp DateTime @default(now())\n}\n",
+  "inlineSchemaHash": "2c744a8298f0ca915a25f616733aedb4320120cfcfbdb3b9742c9847778a9653",
   "copyEngine": true
 }
 
@@ -192,8 +197,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
-path.join(process.cwd(), "generated/mongo/libquery_engine-debian-openssl-3.0.x.so.node")
+path.join(__dirname, "query_engine-windows.dll.node");
+path.join(process.cwd(), "generated/mongo/query_engine-windows.dll.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "generated/mongo/schema.prisma")

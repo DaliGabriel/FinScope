@@ -1,5 +1,5 @@
-import { createTransaction, getTransactions } from '../../services/transaction';
-import { CreateTransactionInput } from '../../types/transaction';
+import { createTransaction, getTransactions } from "../../services/transaction";
+import { CreateTransactionInput } from "../../types/transaction";
 
 export const transactionResolvers = {
   Query: {

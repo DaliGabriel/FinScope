@@ -5,8 +5,9 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../../generated/postgres"
+  provider      = "prisma-client-js"
+  output        = "../../generated/postgres"
+  binaryTargets = ["native", "windows"]
 }
 
 datasource db {

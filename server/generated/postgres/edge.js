@@ -122,7 +122,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/slapfi/finscope/server/generated/postgres",
+      "value": "C:\\Users\\Gahumada\\proyects\\finscope\\FinScope\\server\\generated\\postgres",
       "fromEnvVar": null
     },
     "config": {
@@ -131,12 +131,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "windows"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/slapfi/finscope/server/prisma/postgres/schema.prisma",
+    "sourceFilePath": "C:\\Users\\Gahumada\\proyects\\finscope\\FinScope\\server\\prisma\\postgres\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -159,8 +163,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../../generated/postgres\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Transaction {\n  id       String   @id @default(cuid())\n  type     String\n  amount   Float\n  category String\n  date     DateTime\n}\n",
-  "inlineSchemaHash": "aa5553e7ab7a037ca709c9645307efb44bf82b52f64add770d9c398bc600a257",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../../generated/postgres\"\n  binaryTargets = [\"native\", \"windows\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Transaction {\n  id       String   @id @default(cuid())\n  type     String\n  amount   Float\n  category String\n  date     DateTime\n}\n",
+  "inlineSchemaHash": "8f34f9d5255ddbdf8b5cd09e8f6cb7d28458cbcae417fca389c3750648b22fa1",
   "copyEngine": true
 }
 config.dirname = '/'
