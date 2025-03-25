@@ -122,7 +122,8 @@ exports.Prisma.TransactionScalarFieldEnum = {
   type: 'type',
   amount: 'amount',
   category: 'category',
-  date: 'date'
+  date: 'date',
+  userId: 'userId'
 };
 
 exports.Prisma.SortOrder = {
@@ -133,6 +134,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 

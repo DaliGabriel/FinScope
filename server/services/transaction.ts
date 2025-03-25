@@ -6,6 +6,7 @@ export const createTransaction = async (args: CreateTransactionInput) => {
     data: {
       ...args,
       date: new Date(args.date),
+      userId: args.userId,
     },
   });
 };

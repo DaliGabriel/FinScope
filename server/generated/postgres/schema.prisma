@@ -20,5 +20,6 @@ model Transaction {
   type     String
   amount   Float
   category String
-  date     DateTime
+  date     DateTime //2025-03-24 00:00:00
+  userId   String?
 }

@@ -118,6 +118,14 @@ exports.Prisma.LogEntryScalarFieldEnum = {
   timestamp: 'timestamp'
 };
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  password: 'password',
+  role: 'role',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -130,7 +138,8 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
-  LogEntry: 'LogEntry'
+  LogEntry: 'LogEntry',
+  User: 'User'
 };
 
 /**

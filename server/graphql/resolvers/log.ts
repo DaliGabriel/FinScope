@@ -1,4 +1,3 @@
-import { mongo } from "../../config/prisma";
 import { createLog, getLogs } from "../../services/log";
 import { CreateLogInput } from "../../types/log";
 
