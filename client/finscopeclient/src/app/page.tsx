@@ -1,40 +1,24 @@
 "use client";
-import { gql, useQuery } from "@apollo/client";
 
-const GET_TRANSACTIONS = gql`
-  query GetTransactions {
-    transactions {
-      amount
-      category
-      date
-      id
-      type
-    }
-  }
-`;
+import { useAuth } from "./hooks/useAuth";
 
 export default function Home() {
-  const { data, loading, error } = useQuery(GET_TRANSACTIONS);
+  // This will automatically redirect to /login if not authenticated
+  useAuth({
+    required: true,
+    redirectTo: "/login",
+  });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
-  console.log({ data });
-
+  // The page will show loading state while checking auth
+  // and will redirect if not authenticated
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold">Transactions</h1>
-      {data.transactions.length == 0 ? (
-        <p>No transactions found</p>
-      ) : (
-        <ul>
-          {data.transactions.map((transaction: any) => (
-            <li key={transaction.id}>
-              {transaction.category}: ${transaction.amount}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="text-center">
+        <div className="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <h2 className="text-xl font-semibold text-gray-700">
+          Checking authentication...
+        </h2>
+      </div>
     </div>
   );
 }

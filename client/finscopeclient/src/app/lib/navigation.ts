@@ -1,5 +1,6 @@
-export const navItems = [
-  { label: "Dashboard", href: "/" },
-  { label: "Transactions", href: "/transactions" },
-  { label: "Settings", href: "/settings" },
+export const navigation = [
+  { name: "Overview", href: "/dashboard" },
+  { name: "Transactions", href: "/dashboard/transactions" },
+  { name: "Analytics", href: "/dashboard/analytics" },
+  { name: "Settings", href: "/dashboard/settings" },
 ];

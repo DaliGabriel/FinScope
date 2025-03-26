@@ -2,7 +2,11 @@ import { Header } from "./Header";
 import { Sidebar } from "./Sidebar/SideBar";
 import { navItems } from "../../lib/navigation";
 
-export const Layout = ({ children }: { children: React.ReactNode }) => {
+export const GeneralLayout = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header title="Finscope" />

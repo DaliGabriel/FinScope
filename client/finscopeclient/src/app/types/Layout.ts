@@ -1,3 +1,7 @@
+import { Dispatch } from "react";
+
+import { SetStateAction } from "react";
+
 export interface DesktopSideBarProps {
   navItems: { label: string; href: string }[];
 }

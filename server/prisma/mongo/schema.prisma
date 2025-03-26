@@ -23,5 +23,6 @@ model User {
   email     String   @unique
   password  String
   role      String   @default("USER")
+  name      String
   createdAt DateTime @default(now())
 }

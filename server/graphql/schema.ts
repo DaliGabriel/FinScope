@@ -11,6 +11,7 @@ import { authTypeDefs } from "./typeDefs/auth";
 const mergedResolvers = {
   Query: {
     ...transactionResolvers.Query,
+    ...authResolvers.Query,
   },
   Mutation: {
     ...transactionResolvers.Mutation,
