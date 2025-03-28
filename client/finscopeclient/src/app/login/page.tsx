@@ -31,8 +31,8 @@ export default function LoginPage() {
         // Redirect to dashboard
         router.push("/dashboard/transactions");
       }
-    } catch (err) {
-      console.error("Login error:", err);
+    } catch (error) {
+      console.log(error);
     }
   };
 

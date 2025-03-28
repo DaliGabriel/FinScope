@@ -1,11 +1,12 @@
 import { createSchema } from "graphql-yoga";
-import { transactionResolvers } from "./resolvers/transaction";
-import { logResolvers } from "./resolvers/log";
-import { transactionTypeDefs } from "./typeDefs/transaction";
-import { logTypeDefs } from "./typeDefs/log";
 import { GraphQLContext } from "../types/context";
-import { authResolvers } from "./resolvers/auth";
+
+import { transactionResolvers } from "./resolvers/transaction";
 import { authTypeDefs } from "./typeDefs/auth";
+import { logTypeDefs } from "./typeDefs/log";
+import { transactionTypeDefs } from "./typeDefs/transaction";
+import { authResolvers } from "./resolvers/auth";
+import { logResolvers } from "./resolvers/log";
 
 // Merge resolvers
 const mergedResolvers = {
@@ -18,6 +19,11 @@ const mergedResolvers = {
     ...authResolvers.Mutation,
     ...logResolvers.Mutation,
   },
+
+  TransactionCreationResult: transactionResolvers.TransactionCreationResult,
+  RegisterResult: authResolvers.AuthCreationResult,
+  LoginResult: authResolvers.AuthCreationResult,
+  LogCreationResult: logResolvers.LogCreationResult,
 };
 
 export const schema = createSchema<GraphQLContext>({

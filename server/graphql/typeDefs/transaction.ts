@@ -7,6 +7,19 @@ export const transactionTypeDefs = /* GraphQL */ `
     date: String!
   }
 
+  type TransactionCreationSuccess {
+    transaction: Transaction!
+  }
+
+  type TransactionCreationError {
+    code: String!
+    message: String!
+  }
+
+  union TransactionCreationResult =
+      TransactionCreationSuccess
+    | TransactionCreationError
+
   type Query {
     transactions: [Transaction!]!
   }
@@ -17,6 +30,6 @@ export const transactionTypeDefs = /* GraphQL */ `
       amount: Float!
       category: String!
       date: String!
-    ): Transaction!
+    ): TransactionCreationResult!
   }
 `;

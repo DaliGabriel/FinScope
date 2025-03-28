@@ -27,7 +27,6 @@ export interface ProtectedRouteProps {
   children: ReactNode;
   redirectTo?: string;
 }
-
 // hooks
 export interface UseAuthOptions {
   required?: boolean;

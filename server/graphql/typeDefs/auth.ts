@@ -12,12 +12,27 @@ export const authTypeDefs = /* GraphQL */ `
     user: User!
   }
 
+  type RegisterSuccess {
+    user: User!
+  }
+  type loginSuccess {
+    authPayload: AuthPayload!
+  }
+
+  type AuthError {
+    code: String!
+    message: String!
+  }
+
+  union RegisterResult = RegisterSuccess | AuthError
+  union LoginResult = loginSuccess | AuthError
+
   type Query {
     currentUser: User
   }
 
   type Mutation {
-    register(email: String!, password: String!, name: String!): User!
-    login(email: String!, password: String!): AuthPayload!
+    register(email: String!, password: String!, name: String!): RegisterResult!
+    login(email: String!, password: String!): LoginResult!
   }
 `;
