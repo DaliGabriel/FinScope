@@ -1,12 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { ProtectedRoute } from "../components/auth/ProtectedRoute";
-import { useAuth } from "../hooks/useAuth";
-import { DashboardLayoutProps } from "../types/Dashboard";
-import { navigation } from "../lib/navigation";
 import Navbar from "../components/navigation/Navbar";
+import { DashboardLayoutProps } from "../types/Dashboard";
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (

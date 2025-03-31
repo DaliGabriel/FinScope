@@ -6,7 +6,7 @@ export const authUnionResolvers = {
     __resolveType(obj: any, context: GraphQLContext, info: GraphQLResolveInfo) {
       if (obj.__typename) return obj.__typename;
       if ("user" in obj) return "RegisterSuccess";
-      if ("authPayload" in obj) return "loginSuccess";
+      if ("authPayload" in obj) return "LoginSuccess";
       if ("code" in obj) return "AuthError";
       return null;
     },

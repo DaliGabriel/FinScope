@@ -8,7 +8,7 @@ import { UseAuthOptions } from "../types/auth";
 import { GET_CURRENT_USER } from "../graphql/auth/mutations";
 
 export function useAuth(options: UseAuthOptions = {}) {
-  const { required = false, redirectTo = "/login", onError } = options;
+  const { requireAuth = false, redirectTo = "/login", onError } = options;
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
@@ -24,13 +24,15 @@ export function useAuth(options: UseAuthOptions = {}) {
       const authenticated = !!data?.currentUser;
       setIsAuthenticated(authenticated);
 
-      if (required && !authenticated) {
+      if (requireAuth && !authenticated) {
         // User needs to be authenticated but isn't
         router.push(redirectTo);
-        onError?.();
+        if (error) {
+          onError?.(error);
+        }
       }
     }
-  }, [data, loading, required, redirectTo, router, onError]);
+  }, [data, loading, requireAuth, redirectTo, router, onError, error]);
 
   return {
     user: data?.currentUser || null,

@@ -11,8 +11,16 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 4000;
 
-// Middleware
-app.use(cors());
+// CORS configuration
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Your frontend URL
+    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(express.json());
 
 const yoga = createYoga<GraphQLContext>({

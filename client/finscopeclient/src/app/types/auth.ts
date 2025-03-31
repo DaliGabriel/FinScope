@@ -3,17 +3,28 @@ import { ReactNode } from "react";
 export interface User {
   id: string;
   email: string;
+  name: string;
   role: string;
   createdAt: string;
 }
 
-export interface LoginResponse {
-  accessToken: string;
+export interface AuthError {
+  __typename: "AuthError";
+  code: string;
+  message: string;
+}
+
+export interface RegisterSuccess {
+  __typename: "RegisterSuccess";
   user: User;
 }
 
-export interface RegisterResponse {
-  user: User;
+export type RegisterResponse = RegisterSuccess | AuthError;
+
+export interface RegisterVariables {
+  email: string;
+  password: string;
+  name: string;
 }
 
 export interface LoginVariables {
@@ -21,15 +32,23 @@ export interface LoginVariables {
   password: string;
 }
 
-export interface RegisterVariables extends LoginVariables {}
+export interface LoginSuccess {
+  __typename: "LoginSuccess";
+  authPayload: {
+    accessToken: string;
+    user: User;
+  };
+}
+
+export type LoginResponse = LoginSuccess | AuthError;
+
+export interface UseAuthOptions {
+  requireAuth?: boolean;
+  redirectTo?: string;
+  onError?: (error: Error) => void;
+}
 
 export interface ProtectedRouteProps {
   children: ReactNode;
   redirectTo?: string;
-}
-// hooks
-export interface UseAuthOptions {
-  required?: boolean;
-  redirectTo?: string;
-  onError?: () => void;
 }

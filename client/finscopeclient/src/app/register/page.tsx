@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "../components/Form/Button";
 import { Footer } from "../components/Form/Footer";
 import { Form } from "../components/Form/Form";
 import { Input } from "../components/Form/Input";
 import { useMutation } from "@apollo/client";
-import { RegisterResponse } from "../types/auth";
+import { RegisterResponse, RegisterVariables } from "../types/auth";
 import { REGISTER } from "../graphql/auth/mutations";
+import { useAuth } from "../hooks/useAuth";
 
 interface FormErrors {
   email?: string;
@@ -20,15 +21,36 @@ interface FormErrors {
 export default function RegisterPage() {
   const router = useRouter();
   const [errors, setErrors] = useState<FormErrors>({});
-  const [register, { loading }] = useMutation<{ register: RegisterResponse }>(
-    REGISTER
-  );
+  const { isAuthenticated, isLoading } = useAuth();
+  const [register, { loading }] = useMutation<
+    { register: RegisterResponse },
+    RegisterVariables
+  >(REGISTER);
+
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      router.push("/dashboard/transactions");
+    }
+  }, [isAuthenticated, isLoading, router]);
 
   const validateForm = (data: Record<string, string>): boolean => {
     const newErrors: FormErrors = {};
 
-    // Confirm password validation
-    if (data.password !== data.confirmPassword) {
+    if (!data.email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+      newErrors.email = "Please enter a valid email";
+    }
+
+    if (!data.password) {
+      newErrors.password = "Password is required";
+    } else if (data.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
+    }
+
+    if (!data.confirmPassword) {
+      newErrors.confirmPassword = "Please confirm your password";
+    } else if (data.password !== data.confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match";
     }
 
@@ -42,6 +64,7 @@ export default function RegisterPage() {
     }
 
     try {
+      setErrors({});
       const response = await register({
         variables: {
           email: data.email,
@@ -51,7 +74,11 @@ export default function RegisterPage() {
       });
 
       if (response.data?.register) {
-        router.push("/login?registered=true");
+        if (response.data.register.__typename === "AuthError") {
+          setErrors({ general: response.data.register.message });
+        } else if (response.data.register.__typename === "RegisterSuccess") {
+          router.push("/login?registered=true");
+        }
       }
     } catch (err) {
       setErrors({
@@ -62,6 +89,15 @@ export default function RegisterPage() {
       });
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        <span className="ml-4 text-gray-600">Checking authentication...</span>
+      </div>
+    );
+  }
 
   return (
     <Form onSubmit={handleSubmit}>

@@ -5,7 +5,7 @@ import { useAuth } from "./hooks/useAuth";
 export default function Home() {
   // This will automatically redirect to /login if not authenticated
   useAuth({
-    required: true,
+    requireAuth: true,
     redirectTo: "/login",
   });
 

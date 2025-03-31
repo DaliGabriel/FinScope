@@ -40,7 +40,7 @@ export const authMutations = {
       } else {
         const { accessToken, user } = loginResult;
         return {
-          __typename: "loginSuccess",
+          __typename: "LoginSuccess",
           authPayload: {
             accessToken,
             user,

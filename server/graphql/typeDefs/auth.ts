@@ -15,7 +15,7 @@ export const authTypeDefs = /* GraphQL */ `
   type RegisterSuccess {
     user: User!
   }
-  type loginSuccess {
+  type LoginSuccess {
     authPayload: AuthPayload!
   }
 
@@ -25,7 +25,7 @@ export const authTypeDefs = /* GraphQL */ `
   }
 
   union RegisterResult = RegisterSuccess | AuthError
-  union LoginResult = loginSuccess | AuthError
+  union LoginResult = LoginSuccess | AuthError
 
   type Query {
     currentUser: User
