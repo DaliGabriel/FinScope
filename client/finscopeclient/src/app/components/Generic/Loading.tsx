@@ -3,8 +3,15 @@ import React from "react";
 const Loading = () => {
   return (
     <>
-      <div className="flex items-center justify-center h-full">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      <div
+        className="min-h-screen flex items-center
+    fy-cente
+  -gray-50"
+      >
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <h2 className="text-xl font-semibold text-gray-700">Loading...</h2>
+        </div>
       </div>
     </>
   );
