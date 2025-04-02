@@ -1,10 +1,13 @@
-import { postgres } from "../../config/prisma";
 import { CreateTransactionInput } from "../../types/transaction";
 import {
   createTransactionError,
+  createTransactionGraphQL,
   createTransactionListGraphQL,
 } from "./transactionResult";
-import { getTransactionsByUserId } from "./transactionService";
+import {
+  createTransaction,
+  getTransactionsByUserId,
+} from "./transactionService";
 
 export const getTransactions = async (userId: string) => {
   try {
@@ -18,15 +21,10 @@ export const getTransactions = async (userId: string) => {
   }
 };
 
-export const createTransaction = async (input: CreateTransactionInput) => {
+export const createTransactions = async (input: CreateTransactionInput) => {
   try {
-    const transaction = await postgres.transaction.create({
-      data: {
-        ...input,
-        date: new Date(input.date),
-      },
-    });
-    return createTransactionListGraphQL([transaction]);
+    const transaction = await createTransaction(input);
+    return createTransactionGraphQL(transaction);
   } catch (error) {
     return createTransactionError(
       "CREATION_ERROR",

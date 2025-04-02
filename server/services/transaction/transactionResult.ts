@@ -14,3 +14,21 @@ export const createTransactionListGraphQL = (transactions: Transaction[]) => ({
     date: transaction.date.toISOString(),
   })),
 });
+
+export const createTransactionGraphQL = (transaction: {
+  id: string;
+  amount: number;
+  type: string;
+  category: string;
+  date: Date;
+  userId: string | null;
+}) => ({
+  __typename: "TransactionCreationSuccess",
+  transaction: {
+    id: transaction.id,
+    amount: transaction.amount,
+    type: transaction.type,
+    category: transaction.category,
+    date: transaction.date.toISOString(),
+  },
+});

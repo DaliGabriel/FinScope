@@ -1,7 +1,7 @@
-import { createTransaction } from "../../../services/transaction";
+import { JwtPayload } from "jsonwebtoken";
+import { createTransactions } from "../../../services/transaction";
 import { CreateTransactionInput } from "../../../types/transaction";
 import { requireAuth } from "../../../utils/auth";
-import { JwtPayload } from "jsonwebtoken";
 
 export const transactionMutations = {
   createTransaction: async (
@@ -9,23 +9,29 @@ export const transactionMutations = {
     args: CreateTransactionInput,
     context: { user: string | JwtPayload | null }
   ) => {
-    const auth = requireAuth(context.user, "TransactionCreationError");
+    const auth = requireAuth(context.user, "TransactionError");
 
-    if ("error" in auth) return auth;
+    if ("error" in auth) return auth.error;
 
     try {
-      const transaction = await createTransaction({
+      const result = await createTransactions({
         ...args,
         userId: auth.userId,
       });
-      return {
-        __typename: "TransactionCreationSuccess",
-        transaction,
-      };
+
+      if ("error" in result) {
+        return {
+          __typename: "TransactionError",
+          code: result.error.code,
+          message: result.error.message,
+        };
+      }
+
+      return result;
     } catch (error) {
       console.error("Error creating transaction:", error);
       return {
-        __typename: "TransactionCreationError",
+        __typename: "TransactionError",
         code: "TRANSACTION_CREATION_FAILED",
         message: "Failed to create transaction.",
       };

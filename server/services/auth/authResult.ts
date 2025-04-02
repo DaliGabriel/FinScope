@@ -5,6 +5,7 @@ export const createAuthError = (code: string, message: string) => ({
 });
 
 export const createRegisterSuccess = (user: User) => ({
+  __typename: "RegisterSuccess",
   user: createUserGraphQL(user),
 });
 
