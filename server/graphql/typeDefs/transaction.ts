@@ -16,12 +16,23 @@ export const transactionTypeDefs = /* GraphQL */ `
     message: String!
   }
 
+  type TransactionListSuccess {
+    transactions: [Transaction!]!
+  }
+
+  type TransactionListError {
+    code: String!
+    message: String!
+  }
+
   union TransactionCreationResult =
       TransactionCreationSuccess
     | TransactionCreationError
 
+  union TransactionListResult = TransactionListSuccess | TransactionListError
+
   type Query {
-    transactions: [Transaction!]!
+    transactions: TransactionListResult!
   }
 
   type Mutation {

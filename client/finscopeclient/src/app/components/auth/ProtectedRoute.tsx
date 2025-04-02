@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/app/hooks/useAuth";
 import { ProtectedRouteProps } from "../../types/auth";
-import Loading from "../Generic/Loading";
+import Loading from "../generic/Loading";
 
 export function ProtectedRoute({ children, redirectTo }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading } = useAuth({
@@ -12,7 +12,7 @@ export function ProtectedRoute({ children, redirectTo }: ProtectedRouteProps) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-white bg-opacity-90">
         <Loading />
       </div>
     );

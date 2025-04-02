@@ -7,6 +7,7 @@ import { logTypeDefs } from "./typeDefs/log";
 import { transactionTypeDefs } from "./typeDefs/transaction";
 import { authResolvers } from "./resolvers/auth";
 import { logResolvers } from "./resolvers/log";
+import { authUnionResolvers } from "./resolvers/auth/__resolveTypes";
 
 // Merge resolvers
 const mergedResolvers = {
@@ -21,8 +22,9 @@ const mergedResolvers = {
   },
 
   TransactionCreationResult: transactionResolvers.TransactionCreationResult,
-  RegisterResult: authResolvers.AuthCreationResult,
-  LoginResult: authResolvers.AuthCreationResult,
+  UserResult: authUnionResolvers.UserResult,
+  RegisterResult: authUnionResolvers.RegisterResult,
+  LoginResult: authUnionResolvers.LoginResult,
   LogCreationResult: logResolvers.LogCreationResult,
 };
 

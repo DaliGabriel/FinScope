@@ -15,6 +15,10 @@ export const authTypeDefs = /* GraphQL */ `
   type RegisterSuccess {
     user: User!
   }
+
+  type UserSuccess {
+    currentUser: User!
+  }
   type LoginSuccess {
     authPayload: AuthPayload!
   }
@@ -25,10 +29,11 @@ export const authTypeDefs = /* GraphQL */ `
   }
 
   union RegisterResult = RegisterSuccess | AuthError
+  union UserResult = UserSuccess | AuthError
   union LoginResult = LoginSuccess | AuthError
 
   type Query {
-    currentUser: User
+    currentUser: UserResult!
   }
 
   type Mutation {

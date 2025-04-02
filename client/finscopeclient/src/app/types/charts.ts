@@ -22,3 +22,7 @@ export interface Transaction {
 export interface TransactionSummaryProps {
   transactions: Transaction[];
 }
+
+export interface TransactionListProps {
+  transactions: Transaction[];
+}

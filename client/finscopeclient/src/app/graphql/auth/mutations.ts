@@ -47,13 +47,4 @@ export const REGISTER = gql`
   }
 `;
 
-export const GET_CURRENT_USER = gql`
-  query GetCurrentUser {
-    currentUser {
-      id
-      email
-      role
-      createdAt
-    }
-  }
-`;
+

@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "../components/Form/Button";
-import { Footer } from "../components/Form/Footer";
-import { Form } from "../components/Form/Form";
-import { Input } from "../components/Form/Input";
+import { Button } from "../components/form/Button";
+import { Footer } from "../components/form/Footer";
+import { Form } from "../components/form/Form";
+import { Input } from "../components/form/Input";
 import { useMutation } from "@apollo/client";
 import { RegisterResponse, RegisterVariables } from "../types/auth";
 import { REGISTER } from "../graphql/auth/mutations";

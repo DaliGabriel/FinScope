@@ -8,16 +8,37 @@ export const authQueries = {
     __: any,
     context: { user: string | JwtPayload | null }
   ) => {
-    const userId = extractUserId(context.user);
+    try {
+      const userId = extractUserId(context.user);
 
-    if (!userId) {
+      if (!userId) {
+        return {
+          __typename: "AuthError",
+          code: "UNAUTHORIZED",
+          message: "Unauthorized",
+        };
+      }
+
+      const user = await getUserById(userId);
+
+      if ("error" in user) {
+        return {
+          __typename: "AuthError",
+          code: user?.error?.code,
+          message: user?.error?.message,
+        };
+      } else {
+        return {
+          __typename: "UserSuccess",
+          currentUser: user,
+        };
+      }
+    } catch (error) {
       return {
-        __typename: "AuthCreationError",
-        code: "UNAUTHORIZED",
-        message: "Unauthorized",
+        __typename: "AuthError",
+        code: "AUTH_GET_USER_FAILED",
+        message: "Failed to get the user information.",
       };
     }
-
-    return await getUserById(userId);
   },
 };

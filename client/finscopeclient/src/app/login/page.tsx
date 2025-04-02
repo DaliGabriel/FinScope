@@ -2,11 +2,11 @@
 
 import { useMutation } from "@apollo/client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Form } from "../components/Form/Form";
-import { Input } from "../components/Form/Input";
-import { Button } from "../components/Form/Button";
-import { FormLink } from "../components/Form/Link";
-import { Footer } from "../components/Form/Footer";
+import { Form } from "../components/form/Form";
+import { Input } from "../components/form/Input";
+import { Button } from "../components/form/Button";
+import { FormLink } from "../components/form/Link";
+import { Footer } from "../components/form/Footer";
 import { LOGIN } from "../graphql/auth/mutations";
 import { LoginResponse, LoginVariables } from "../types/auth";
 import { useState, useEffect } from "react";

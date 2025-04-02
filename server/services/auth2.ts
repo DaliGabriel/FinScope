@@ -64,5 +64,23 @@ export const login = async (
 };
 
 export const getUserById = async (id: string) => {
-  return await mongo.user.findUnique({ where: { id } });
+  const user = await mongo.user.findUnique({ where: { id } });
+  if (!user) {
+    return {
+      error: {
+        code: "USER_NOT_FOUND",
+        message: "Invalid credentials",
+      },
+    };
+  }
+
+  // Format the user response to match the GraphQL User type
+  return {
+    __typename: "User",
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    role: user.role,
+    createdAt: user.createdAt.toISOString(),
+  };
 };
