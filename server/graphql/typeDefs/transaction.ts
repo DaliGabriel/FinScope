@@ -11,25 +11,20 @@ export const transactionTypeDefs = /* GraphQL */ `
     transaction: Transaction!
   }
 
-  type TransactionCreationError {
-    code: String!
-    message: String!
-  }
-
   type TransactionListSuccess {
     transactions: [Transaction!]!
   }
 
-  type TransactionListError {
+  type TransactionError {
     code: String!
     message: String!
   }
 
   union TransactionCreationResult =
       TransactionCreationSuccess
-    | TransactionCreationError
+    | TransactionError
 
-  union TransactionListResult = TransactionListSuccess | TransactionListError
+  union TransactionListResult = TransactionListSuccess | TransactionError
 
   type Query {
     transactions: TransactionListResult!

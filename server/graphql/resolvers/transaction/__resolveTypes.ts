@@ -10,4 +10,12 @@ export const transactionUnionResolvers = {
       return null;
     },
   },
+  TransactionListResult: {
+    __resolveType(obj: any, context: GraphQLContext, info: GraphQLResolveInfo) {
+      if (obj.__typename) return obj.__typename;
+      if ("transactions" in obj) return "TransactionListSuccess";
+      if ("code" in obj) return "TransactionError";
+      return null;
+    },
+  },
 };

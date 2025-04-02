@@ -1,6 +1,6 @@
 import { JwtPayload } from "jsonwebtoken";
 import { getUserById } from "../../../services/auth";
-import { extractUserId } from "../../../utils/auth";
+import { requireAuth } from "../../../utils/auth";
 
 export const authQueries = {
   currentUser: async (
@@ -9,17 +9,11 @@ export const authQueries = {
     context: { user: string | JwtPayload | null }
   ) => {
     try {
-      const userId = extractUserId(context.user);
+      const auth = requireAuth(context.user, "AuthError");
 
-      if (!userId) {
-        return {
-          __typename: "AuthError",
-          code: "UNAUTHORIZED",
-          message: "Unauthorized",
-        };
-      }
+      if ("error" in auth) return auth.error;
 
-      const result = await getUserById(userId);
+      const result = await getUserById(auth.userId);
 
       if ("error" in result) {
         return {

@@ -1,6 +1,6 @@
 import { createTransaction } from "../../../services/transaction";
 import { CreateTransactionInput } from "../../../types/transaction";
-import { extractUserId } from "../../../utils/auth";
+import { requireAuth } from "../../../utils/auth";
 import { JwtPayload } from "jsonwebtoken";
 
 export const transactionMutations = {
@@ -9,18 +9,15 @@ export const transactionMutations = {
     args: CreateTransactionInput,
     context: { user: string | JwtPayload | null }
   ) => {
-    const userId = extractUserId(context.user);
+    const auth = requireAuth(context.user, "TransactionCreationError");
 
-    if (!userId) {
-      return {
-        __typename: "TransactionCreationError",
-        code: "UNAUTHORIZED",
-        message: "Unauthorized",
-      };
-    }
+    if ("error" in auth) return auth;
 
     try {
-      const transaction = await createTransaction({ ...args, userId });
+      const transaction = await createTransaction({
+        ...args,
+        userId: auth.userId,
+      });
       return {
         __typename: "TransactionCreationSuccess",
         transaction,

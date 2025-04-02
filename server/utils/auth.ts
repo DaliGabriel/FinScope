@@ -1,10 +1,30 @@
 import { JwtPayload } from "jsonwebtoken";
 import { ValidatorOutput, loginInput, registerInput } from "../types/auth";
 
-export function extractUserId(user: string | JwtPayload | null): string | null {
+function extractUserId(user: string | JwtPayload | null): string | null {
   if (!user) return null;
   return typeof user === "string" ? user : user.userId;
 }
+
+export const requireAuth = (
+  user: string | JwtPayload | null,
+  errorType: string = "AuthError"
+):
+  | { userId: string }
+  | { error: { __typename: string; code: string; message: string } } => {
+  const userId = extractUserId(user);
+  if (!userId) {
+    return {
+      error: {
+        __typename: errorType,
+        code: "UNAUTHORIZED",
+        message: "Unauthorized",
+      },
+    };
+  }
+
+  return { userId };
+};
 
 export function inputRegisterValidator({
   email,
