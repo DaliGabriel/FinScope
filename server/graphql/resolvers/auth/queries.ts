@@ -19,20 +19,20 @@ export const authQueries = {
         };
       }
 
-      const user = await getUserById(userId);
+      const result = await getUserById(userId);
 
-      if ("error" in user) {
+      if ("error" in result) {
         return {
           __typename: "AuthError",
-          code: user?.error?.code,
-          message: user?.error?.message,
-        };
-      } else {
-        return {
-          __typename: "UserSuccess",
-          currentUser: user,
+          code: result.error.code,
+          message: result.error.message,
         };
       }
+
+      return {
+        __typename: "UserSuccess",
+        currentUser: result,
+      };
     } catch (error) {
       return {
         __typename: "AuthError",
