@@ -23,10 +23,7 @@ export const authMutations = {
         };
       }
 
-      return {
-        __typename: "RegisterSuccess",
-        user: result.user,
-      };
+      return result;
     } catch (error: unknown) {
       console.error("Error in register resolver:", error);
       return {
