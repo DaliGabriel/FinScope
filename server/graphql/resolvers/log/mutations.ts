@@ -1,5 +1,5 @@
 import { JwtPayload } from "jsonwebtoken";
-import { createLog } from "../../../services/log";
+import { createLogs } from "../../../services/log";
 import { CreateLogInput } from "../../../types/log";
 import { requireAuth } from "../../../utils/auth";
 
@@ -9,20 +9,26 @@ export const logMutations = {
     args: CreateLogInput,
     context: { user: string | JwtPayload | null }
   ) => {
-    const auth = requireAuth(context.user, "LogCreationError");
+    const auth = requireAuth(context.user, "LogError");
 
-    if ("error" in auth) return auth;
+    if ("error" in auth) return auth.error;
 
     try {
-      const log = await createLog({ ...args });
-      return {
-        __typename: "LogCreationSuccess",
-        log,
-      };
+      const result = await createLogs({ ...args, userId: auth.userId });
+
+      if ("error" in result) {
+        return {
+          __typename: "LogError",
+          code: result.error.code,
+          message: result.error.message,
+        };
+      }
+
+      return result;
     } catch (error) {
       console.error("Error creating log:", error);
       return {
-        __typename: "LogCreationError",
+        __typename: "LogError",
         code: "LOG_CREATION_FAILED",
         message: "Failed to create log.",
       };

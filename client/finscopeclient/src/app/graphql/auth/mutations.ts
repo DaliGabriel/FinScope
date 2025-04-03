@@ -47,4 +47,24 @@ export const REGISTER = gql`
   }
 `;
 
-
+export const GET_CURRENT_USER = gql`
+  query GetCurrentUser {
+    currentUser {
+      ... on AuthError {
+        __typename
+        code
+        message
+      }
+      ... on UserSuccess {
+        __typename
+        currentUser {
+          createdAt
+          email
+          id
+          name
+          role
+        }
+      }
+    }
+  }
+`;

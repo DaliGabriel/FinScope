@@ -23,10 +23,7 @@ export const authQueries = {
         };
       }
 
-      return {
-        __typename: "UserSuccess",
-        currentUser: result,
-      };
+      return result;
     } catch (error) {
       return {
         __typename: "AuthError",

@@ -23,10 +23,7 @@ export const transactionQueries = {
         };
       }
 
-      return {
-        __typename: "TransactionListSuccess",
-        transactions: result.transactions,
-      };
+      return result;
     } catch (error) {
       return {
         __typename: "TransactionError",

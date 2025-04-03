@@ -1,33 +1,30 @@
 "use client";
 
 import { useMutation } from "@apollo/client";
+import Cookies from "js-cookie";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Button } from "../components/form/Button";
+import { Footer } from "../components/form/Footer";
 import { Form } from "../components/form/Form";
 import { Input } from "../components/form/Input";
-import { Button } from "../components/form/Button";
 import { FormLink } from "../components/form/Link";
-import { Footer } from "../components/form/Footer";
+import ErrorMessage from "../components/generic/ErrorMessage";
+import Loading from "../components/generic/Loading";
 import { LOGIN } from "../graphql/auth/mutations";
-import { LoginResponse, LoginVariables } from "../types/auth";
-import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
-import Cookies from "js-cookie";
+import { LoginMutationParams, LoginResponse } from "../types/auth";
 
 export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [error, setError] = useState<string | null>(null);
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isLoading } = useAuth();
+
   const [login, { loading }] = useMutation<
     { login: LoginResponse },
-    LoginVariables
+    LoginMutationParams
   >(LOGIN);
-
-  useEffect(() => {
-    if (!isLoading && isAuthenticated) {
-      router.push("/dashboard/transactions");
-    }
-  }, [isAuthenticated, isLoading, router]);
 
   const handleSubmit = async (data: Record<string, string>) => {
     try {
@@ -65,22 +62,11 @@ export default function LoginPage() {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-        <span className="ml-4 text-gray-600">Checking authentication...</span>
-      </div>
-    );
-  }
+  if (isLoading) return <Loading message="Checking authentication..." />;
 
   return (
     <Form onSubmit={handleSubmit}>
-      {error && (
-        <div className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg">
-          {error}
-        </div>
-      )}
+      {error && <ErrorMessage message={error} />}
       <Input
         name="email"
         type="email"

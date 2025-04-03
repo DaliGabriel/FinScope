@@ -9,8 +9,8 @@ import ErrorMessage from "../../components/generic/ErrorMessage";
 import TransactionList from "@/app/components/charts/TransactionList";
 
 export default function TransactionsPage() {
-  
   const { data, loading, error } = useQuery(GET_TRANSACTIONS);
+
 
   if (loading) return <Loading />;
 

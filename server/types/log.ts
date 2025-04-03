@@ -1,5 +1,5 @@
 export interface CreateLogInput {
-    action: string;
-    details: string;
-    userId: string;
-  }
+  action: string;
+  details: string;
+  userId: string;
+}

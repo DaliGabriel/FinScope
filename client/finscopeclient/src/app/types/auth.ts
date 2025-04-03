@@ -19,19 +19,6 @@ export interface RegisterSuccess {
   user: User;
 }
 
-export type RegisterResponse = RegisterSuccess | AuthError;
-
-export interface RegisterVariables {
-  email: string;
-  password: string;
-  name: string;
-}
-
-export interface LoginVariables {
-  email: string;
-  password: string;
-}
-
 export interface LoginSuccess {
   __typename: "LoginSuccess";
   authPayload: {
@@ -40,10 +27,29 @@ export interface LoginSuccess {
   };
 }
 
+export interface UserSuccess {
+  __typename: "UserSuccess";
+  currentUser: User;
+}
+
+export type RegisterResponse = RegisterSuccess | AuthError;
+
 export type LoginResponse = LoginSuccess | AuthError;
 
+export type CurrentUserResponse = UserSuccess | AuthError;
+
+export interface RegisterVariables {
+  email: string;
+  password: string;
+  name: string;
+}
+
+export interface LoginMutationParams {
+  email: string;
+  password: string;
+}
+
 export interface UseAuthOptions {
-  requireAuth?: boolean;
   redirectTo?: string;
   onError?: (error: Error) => void;
 }

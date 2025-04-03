@@ -11,18 +11,23 @@ export const logTypeDefs = /* GraphQL */ `
     log: LogEntry!
   }
 
-  type LogCreationError {
+  type LogListSuccess {
+    logs: [LogEntry!]!
+  }
+
+  type LogError {
     code: String!
     message: String!
   }
 
-  union LogCreationResult = LogCreationSuccess | LogCreationError
+  union LogCreationResult = LogCreationSuccess | LogError
+  union LogListResult = LogListSuccess | LogError
+
+  type Query {
+    logs: LogListResult!
+  }
 
   type Mutation {
-    createLog(
-      action: String!
-      details: String!
-      userId: String!
-    ): LogCreationResult!
+    createLog(action: String!, details: String!): LogCreationResult!
   }
 `;

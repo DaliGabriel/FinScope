@@ -4,6 +4,7 @@ import { TransactionSummaryProps } from "../../types/charts";
 export const TransactionSummary: React.FC<TransactionSummaryProps> = ({
   transactions,
 }) => {
+
   const totalIncome = transactions
     .filter((transaction) => transaction.type === "INCOME")
     .reduce((sum, t) => sum + t.amount, 0);

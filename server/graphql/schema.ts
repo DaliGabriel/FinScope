@@ -7,25 +7,27 @@ import { logTypeDefs } from "./typeDefs/log";
 import { transactionTypeDefs } from "./typeDefs/transaction";
 import { authResolvers } from "./resolvers/auth";
 import { logResolvers } from "./resolvers/log";
-import { authUnionResolvers } from "./resolvers/auth/__resolveTypes";
 
 // Merge resolvers
 const mergedResolvers = {
   Query: {
     ...transactionResolvers.Query,
     ...authResolvers.Query,
+    ...logResolvers.Query,
   },
   Mutation: {
     ...transactionResolvers.Mutation,
     ...authResolvers.Mutation,
     ...logResolvers.Mutation,
   },
-
-  TransactionCreationResult: transactionResolvers.TransactionCreationResult,
-  UserResult: authUnionResolvers.UserResult,
-  RegisterResult: authUnionResolvers.RegisterResult,
-  LoginResult: authUnionResolvers.LoginResult,
-  LogCreationResult: logResolvers.LogCreationResult,
+  // Include all other resolvers (including union resolvers) from each module
+  ...Object.fromEntries(
+    Object.entries({
+      ...transactionResolvers,
+      ...authResolvers,
+      ...logResolvers,
+    }).filter(([key]) => key !== "Query" && key !== "Mutation")
+  ),
 };
 
 export const schema = createSchema<GraphQLContext>({

@@ -1,6 +1,7 @@
+import { LoadingProps } from "@/app/types/loading";
 import React from "react";
 
-const Loading = () => {
+const Loading = ({ message = "Loading..." }: LoadingProps) => {
   return (
     <>
       <div
@@ -10,7 +11,7 @@ const Loading = () => {
       >
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <h2 className="text-xl font-semibold text-gray-700">Loading...</h2>
+          <h2 className="text-xl font-semibold text-gray-700">{message}</h2>
         </div>
       </div>
     </>

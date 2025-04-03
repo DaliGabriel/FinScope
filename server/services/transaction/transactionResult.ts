@@ -5,8 +5,9 @@ export const createTransactionError = (code: string, message: string) => ({
 });
 
 export const createTransactionListGraphQL = (transactions: Transaction[]) => ({
-  __typename: "Transaction",
+  __typename: "TransactionListSuccess",
   transactions: transactions.map((transaction) => ({
+    __typename: "Transaction",
     id: transaction.id,
     amount: transaction.amount,
     type: transaction.type,

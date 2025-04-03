@@ -35,3 +35,9 @@ export interface LoginErrorResult {
     message: string;
   };
 }
+
+export interface CreateUserInput {
+  email: string;
+  password: string;
+  name: string;
+}

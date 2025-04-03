@@ -20,10 +20,13 @@ export const createLoginSuccess = (
 });
 
 export const createUserGraphQL = (user: User) => ({
-  __typename: "User",
-  id: user.id,
-  email: user.email,
-  name: user.name,
-  role: user.role,
-  createdAt: user.createdAt.toISOString(),
+  __typename: "UserSuccess",
+  currentUser: {
+    __typename: "User",
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    role: user.role,
+    createdAt: user.createdAt.toISOString(),
+  },
 });
