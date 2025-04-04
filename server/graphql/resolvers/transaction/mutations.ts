@@ -19,14 +19,6 @@ export const transactionMutations = {
         userId: auth.userId,
       });
 
-      if ("error" in result) {
-        return {
-          __typename: "TransactionError",
-          code: result.error.code,
-          message: result.error.message,
-        };
-      }
-
       return result;
     } catch (error) {
       console.error("Error creating transaction:", error);

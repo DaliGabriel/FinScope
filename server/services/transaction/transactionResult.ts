@@ -1,7 +1,9 @@
 import { Transaction } from "../../generated/postgres";
 
 export const createTransactionError = (code: string, message: string) => ({
-  error: { code, message },
+  __typename: "TransactionError",
+  code,
+  message,
 });
 
 export const createTransactionListGraphQL = (transactions: Transaction[]) => ({

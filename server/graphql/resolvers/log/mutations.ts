@@ -16,14 +16,6 @@ export const logMutations = {
     try {
       const result = await createLogs({ ...args, userId: auth.userId });
 
-      if ("error" in result) {
-        return {
-          __typename: "LogError",
-          code: result.error.code,
-          message: result.error.message,
-        };
-      }
-
       return result;
     } catch (error) {
       console.error("Error creating log:", error);

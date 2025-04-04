@@ -25,5 +25,7 @@ export const createLogGraphQL = (log: LogEntry) => ({
 });
 
 export const createLogError = (code: string, message: string) => ({
-  error: { code, message },
+  __typename: "LogError",
+  code,
+  message,
 });

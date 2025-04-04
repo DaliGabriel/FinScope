@@ -15,14 +15,6 @@ export const transactionQueries = {
 
       const result = await getTransactions(auth.userId);
 
-      if ("error" in result) {
-        return {
-          __typename: "TransactionError",
-          code: result.error.code,
-          message: result.error.message,
-        };
-      }
-
       return result;
     } catch (error) {
       return {

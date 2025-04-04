@@ -15,14 +15,6 @@ export const logQueries = {
 
       const result = await getLogs();
 
-      if ("error" in result) {
-        return {
-          __typename: "LogError",
-          code: result.error.code,
-          message: result.error.message,
-        };
-      }
-
       return result;
     } catch (error) {
       return {
