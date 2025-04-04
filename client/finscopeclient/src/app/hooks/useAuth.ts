@@ -23,7 +23,7 @@ export function useAuth(options: UseAuthOptions = {}) {
       const authenticated = data?.currentUser?.__typename === "UserSuccess";
       setIsAuthenticated(authenticated);
 
-      if (!authenticated) {
+      if (!authenticated && redirectTo) {
         // User needs to be authenticated but isn't
         router.push(redirectTo);
         if (error) {

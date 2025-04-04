@@ -14,15 +14,6 @@ export const authMutations = {
 
     try {
       const result = await register(email, password, name);
-
-      if ("error" in result) {
-        return {
-          __typename: "AuthError",
-          code: result.error.code,
-          message: result.error.message,
-        };
-      }
-
       return result;
     } catch (error: unknown) {
       console.error("Error in register resolver:", error);
@@ -41,26 +32,8 @@ export const authMutations = {
     if (validationError) return validationError;
 
     try {
-      const loginResult = await login(email, password);
-
-      if ("error" in loginResult) {
-        return {
-          __typename: "AuthError",
-          code: loginResult.error.code,
-          message: loginResult.error.message,
-        };
-      }
-
-      const { accessToken, refreshToken, user } = loginResult;
-
-      return {
-        __typename: "LoginSuccess",
-        authPayload: {
-          accessToken,
-          refreshToken,
-          user,
-        },
-      };
+      const result = await login(email, password);
+      return result;
     } catch (error) {
       console.error("Error in login resolver:", error);
       return {

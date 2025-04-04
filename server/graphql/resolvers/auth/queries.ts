@@ -15,14 +15,6 @@ export const authQueries = {
 
       const result = await getUserById(auth.userId);
 
-      if ("error" in result) {
-        return {
-          __typename: "AuthError",
-          code: result.error.code,
-          message: result.error.message,
-        };
-      }
-
       return result;
     } catch (error) {
       return {

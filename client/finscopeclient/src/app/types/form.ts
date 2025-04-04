@@ -31,3 +31,14 @@ export interface FooterProps {
 export interface FormContextType {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
+
+export type ValidationError = {
+  type:
+    | "name"
+    | "email"
+    | "password"
+    | "confirmPassword"
+    | "emailFormat"
+    | "passwordMatch";
+  message: string;
+};

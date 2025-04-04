@@ -1,12 +1,21 @@
 import { User } from "../../generated/mongo";
 
 export const createAuthError = (code: string, message: string) => ({
-  error: { code, message },
+  __typename: "AuthError",
+  code,
+  message,
 });
 
 export const createRegisterSuccess = (user: User) => ({
   __typename: "RegisterSuccess",
-  user: createUserGraphQL(user),
+  user: {
+    __typename: "User",
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    role: user.role || "USER",
+    createdAt: user.createdAt?.toISOString() || new Date().toISOString(),
+  },
 });
 
 export const createLoginSuccess = (
@@ -14,9 +23,19 @@ export const createLoginSuccess = (
   refreshToken: string,
   user: User
 ) => ({
-  accessToken,
-  refreshToken,
-  user,
+  __typename: "LoginSuccess",
+  authPayload: {
+    accessToken,
+    refreshToken,
+    user: {
+      __typename: "User",
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role || "USER",
+      createdAt: user.createdAt?.toISOString() || new Date().toISOString(),
+    },
+  },
 });
 
 export const createUserGraphQL = (user: User) => ({
@@ -26,7 +45,7 @@ export const createUserGraphQL = (user: User) => ({
     id: user.id,
     email: user.email,
     name: user.name,
-    role: user.role,
-    createdAt: user.createdAt.toISOString(),
+    role: user.role || "USER",
+    createdAt: user.createdAt?.toISOString() || new Date().toISOString(),
   },
 });
