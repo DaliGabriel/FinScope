@@ -14,12 +14,20 @@ import Loading from "../components/generic/Loading";
 import { LOGIN } from "../graphql/auth/mutations";
 import { useAuth } from "../hooks/useAuth";
 import { LoginMutationParams, LoginResponse } from "../types/auth";
+import SuccessMessage from "../components/generic/SuccessMessage";
 
 export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const { isLoading } = useAuth();
+
+  useEffect(() => {
+    if (searchParams.get("registered") === "true") {
+      setSuccessMessage("Registration successful! Please log in.");
+    }
+  }, [searchParams]);
 
   const [login, { loading }] = useMutation<
     { login: LoginResponse },
@@ -67,6 +75,7 @@ export default function LoginPage() {
   return (
     <Form onSubmit={handleSubmit}>
       {error && <ErrorMessage message={error} />}
+      {successMessage && <SuccessMessage message={successMessage} />}
       <Input
         name="email"
         type="email"

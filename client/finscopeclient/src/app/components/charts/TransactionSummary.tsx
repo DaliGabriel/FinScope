@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { TransactionSummaryProps } from "../../types/charts";
 
 export const TransactionSummary: React.FC<TransactionSummaryProps> = ({
   transactions,
 }) => {
+  const [totalIncome, setTotalIncome] = useState(0);
+  const [totalExpenses, setTotalExpenses] = useState(0);
+  const [balance, setBalance] = useState(0);
 
-  const totalIncome = transactions
-    .filter((transaction) => transaction.type === "INCOME")
-    .reduce((sum, t) => sum + t.amount, 0);
+  if (transactions.length !== 0) {
+    const totalIncome = transactions
+      .filter((transaction) => transaction.type === "INCOME")
+      .reduce((sum, t) => sum + t.amount, 0);
 
-  const totalExpenses = transactions
-    .filter((transaction) => transaction.type === "EXPENSE")
-    .reduce((sum, transaction) => sum + transaction.amount, 0);
+    setTotalIncome(totalIncome);
 
-  const balance = totalIncome - totalExpenses;
+    const totalExpenses = transactions
+      .filter((transaction) => transaction.type === "EXPENSE")
+      .reduce((sum, transaction) => sum + transaction.amount, 0);
+
+    setTotalExpenses(totalExpenses);
+
+    const balance = totalIncome - totalExpenses;
+    setBalance(balance);
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
